@@ -10,22 +10,29 @@
 import UIKit
 import ARKit
 
-class ViewController: UIViewController {
+enum BitMaskCategory: Int {
+	case bullet = 2
+	case target = 3
+}
+
+class ViewController: UIViewController, SCNPhysicsContactDelegate {
 
 	@IBOutlet weak var sceneView: ARSCNView!
 
 	
 	let configuration = ARWorldTrackingConfiguration()
 	var power: Float = 50
+	var Target: SCNNode?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+		//self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
 		self.sceneView.session.run(configuration)
 		self.sceneView.autoenablesDefaultLighting = true
 		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
 		self.sceneView.addGestureRecognizer(gestureRecognizer)
+		self.sceneView.scene.physicsWorld.contactDelegate = self
 		
 	}
 	
@@ -44,9 +51,10 @@ class ViewController: UIViewController {
 		body.isAffectedByGravity = false
 		bullet.physicsBody = body
 		bullet.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
+		bullet.physicsBody?.categoryBitMask = BitMaskCategory.bullet.rawValue
+		bullet.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
 		self.sceneView.scene.rootNode.addChildNode(bullet)
-		
-		
+		bullet.runAction(SCNAction.sequence([SCNAction.wait(duration: 2.0), SCNAction.removeFromParentNode()]))
 	}
 	
 	
@@ -62,8 +70,29 @@ class ViewController: UIViewController {
 		let eggNode = (eggScene?.rootNode.childNode(withName: "egg", recursively: false))!
 		eggNode.position = SCNVector3(x,y,z)
 		eggNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: eggNode, options: nil))
+		eggNode.physicsBody?.categoryBitMask = BitMaskCategory.target.rawValue
+		eggNode.physicsBody?.contactTestBitMask = BitMaskCategory.bullet.rawValue
 		self.sceneView.scene.rootNode.addChildNode(eggNode)
 		
+	}
+	
+	func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+		let nodeA = contact.nodeA
+		let nodeB = contact.nodeB
+		if nodeA.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue {
+			self.Target = nodeA
+		} else if nodeB.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue {
+			self.Target = nodeB
+		}
+		let confetti = SCNParticleSystem(named: "Models.scnassets/Confetti.scnp", inDirectory: nil)
+		confetti?.loops = false
+		confetti?.particleLifeSpan = 4
+		confetti?.emitterShape = Target?.geometry
+		let confettiNode = SCNNode()
+		confettiNode.addParticleSystem(confetti!)
+		confettiNode.position = contact.contactPoint
+		self.sceneView.scene.rootNode.addChildNode(confettiNode)
+		Target?.removeFromParentNode()
 	}
 
 }

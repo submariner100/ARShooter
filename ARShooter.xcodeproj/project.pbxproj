@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		271716AA1F8750C5002139B9 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 271716A91F8750C5002139B9 /* Models.scnassets */; };
+		271716B11F877F0A002139B9 /* Confetti.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 271716AF1F877F0A002139B9 /* Confetti.scnp */; };
+		271716B21F877F0A002139B9 /* confetti.png in Resources */ = {isa = PBXBuildFile; fileRef = 271716B01F877F0A002139B9 /* confetti.png */; };
 		279CED0F1F86B0040074B445 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279CED0E1F86B0040074B445 /* AppDelegate.swift */; };
 		279CED111F86B0040074B445 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279CED101F86B0040074B445 /* ViewController.swift */; };
 		279CED141F86B0040074B445 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 279CED121F86B0040074B445 /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		271716A91F8750C5002139B9 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
+		271716AF1F877F0A002139B9 /* Confetti.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Confetti.scnp; path = Models.scnassets/Confetti.scnp; sourceTree = "<group>"; };
+		271716B01F877F0A002139B9 /* confetti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = confetti.png; path = Models.scnassets/confetti.png; sourceTree = "<group>"; };
 		279CED0B1F86B0040074B445 /* ARShooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARShooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		279CED0E1F86B0040074B445 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		279CED101F86B0040074B445 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				279CED151F86B0040074B445 /* Assets.xcassets */,
 				279CED171F86B0040074B445 /* LaunchScreen.storyboard */,
 				279CED1A1F86B0040074B445 /* Info.plist */,
+				271716AF1F877F0A002139B9 /* Confetti.scnp */,
+				271716B01F877F0A002139B9 /* confetti.png */,
 			);
 			path = ARShooter;
 			sourceTree = "<group>";
@@ -129,7 +135,9 @@
 				279CED191F86B0040074B445 /* LaunchScreen.storyboard in Resources */,
 				271716AA1F8750C5002139B9 /* Models.scnassets in Resources */,
 				279CED161F86B0040074B445 /* Assets.xcassets in Resources */,
+				271716B11F877F0A002139B9 /* Confetti.scnp in Resources */,
 				279CED141F86B0040074B445 /* Main.storyboard in Resources */,
+				271716B21F877F0A002139B9 /* confetti.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
